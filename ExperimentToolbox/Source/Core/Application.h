@@ -14,7 +14,9 @@ namespace etb {
 
 		void Start();
 
-		virtual void Tick() {};
+		virtual void Update() {};
+		virtual void Render() {};
+		virtual void GUI() {};
 
 	private:
 	};

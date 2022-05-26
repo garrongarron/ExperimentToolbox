@@ -6,10 +6,10 @@ namespace etb {
 	class Primitives {
 	public:
 		static etb::Mesh quad;
-		// etb::Mesh Plane;
-		// etb::Mesh Box;
-		// etb::Mesh Sphere;
-		// etb::Mesh Capsule;
+		// static etb::Mesh Plane;
+		static etb::Mesh cube;
+		// static etb::Mesh Sphere;
+		// static etb::Mesh Capsule;
 
 		static void GeneratePrimitives();
 	};

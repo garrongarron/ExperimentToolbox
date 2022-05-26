@@ -81,7 +81,6 @@ void etb::Graphics::GL::Ortho(float left, float right, float bottom, float top, 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	// glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
 
 	glAlphaFunc(GL_GREATER, 0.5);
@@ -106,7 +105,7 @@ int32_t etb::Graphics::GL::GetUniformLocation(int32_t program, const char* name)
 }
 
 void etb::Graphics::Draw::Circle2D(glm::vec3 color, glm::vec2 position, float radius, float stroke, glm::vec3 strokeColor) {
-	static Shader cirlce2DShader("shaders/circle2d");
+	static Shader cirlce2DShader("Build-In/Shaders/Circle2D");
 	static Material cirlce2DMaterial(&cirlce2DShader);
 
 	cirlce2DMaterial.Use();

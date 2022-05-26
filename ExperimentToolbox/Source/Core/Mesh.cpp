@@ -12,6 +12,7 @@ etb::Mesh::~Mesh() {
 	glDeleteBuffers(1, &ebo);
 	glDeleteBuffers(1, &tbo);
 	glDeleteBuffers(1, &vbo);
+	glDeleteBuffers(1, &nbo);
 	
 	glDeleteVertexArrays(1, &vao);
 }
@@ -20,6 +21,7 @@ void etb::Mesh::GenBuffers() {
 	glGenBuffers(1, &ebo);
 	glGenBuffers(1, &tbo);
 	glGenBuffers(1, &vbo);
+	glGenBuffers(1, &nbo);
 
 	glGenVertexArrays(1, &vao);
 }
@@ -38,8 +40,17 @@ void etb::Mesh::StoreData() {
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		glBufferData(GL_ARRAY_BUFFER, vertex.size() * sizeof(glm::vec3), &vertex[0], GL_STATIC_DRAW);
 
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*) 0);
+	}
+
+	// Normal buffer
+	if (normals.size()) {
+		glBindBuffer(GL_ARRAY_BUFFER, nbo);
+		glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*) 0);
 	}
 
 	// Texture buffer

@@ -1,8 +1,12 @@
 #include "Primitives.h"
 
+#include "../Utils/Loaders/OBJLoader.h"
+
 etb::Mesh etb::Primitives::quad;
+etb::Mesh etb::Primitives::cube;
 
 void etb::Primitives::GeneratePrimitives() {
+	// Quad
 	Primitives::quad.GenBuffers();
 
 	Primitives::quad.vertex = {
@@ -23,4 +27,8 @@ void etb::Primitives::GeneratePrimitives() {
 	};
 
 	Primitives::quad.StoreData();
+
+	// Cube
+	OBJFile file = OBJLoader::FromFile("Build-In/Models/Cube.obj");
+	Primitives::cube = file.GetMesh("Cube_Cube.001");
 }

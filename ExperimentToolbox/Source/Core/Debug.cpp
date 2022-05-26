@@ -1,5 +1,5 @@
 #include "Debug.h"
-#include <SDL/SDL.h>
+#include <SDL.h>
 
 void etb::Debug::Print(const std::string & str)
 {

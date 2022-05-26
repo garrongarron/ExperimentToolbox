@@ -37,6 +37,10 @@ etb::Input::Input() {
         this->keyPressState[(uint32_t) e.keyCode] = false;
         this->keyUpState[(uint32_t) e.keyCode] = true;
     });
+
+    EventSystem::AddEventListener(EventType::Tick, [&](Event &e) {
+        Input::UpdateKeyState();
+    });
 }
 
 etb::Input::~Input() {

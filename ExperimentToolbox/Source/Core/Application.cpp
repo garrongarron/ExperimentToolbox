@@ -43,16 +43,21 @@ void etb::Application::Start() {
 	while (isRunning) {
 		Time::Tick();
 
-		Input::UpdateKeyState();
+		// Events
 		EventSystem::Poll();
+
+		// Update
+		this->Update();
+
+		// Render
+		Graphics::GL::Clear();
+		this->Render();
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplSDL2_NewFrame(window->sdlWindow);
 		ImGui::NewFrame();
 
-		Graphics::GL::Clear();
-
-		this->Tick();
+		this->GUI();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

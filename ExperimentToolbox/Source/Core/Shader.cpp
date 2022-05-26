@@ -4,13 +4,14 @@
 #include "Graphics.h"
 #include "Debug.h"
 #include "Shader.h"
+#include "../IO/File.h"
 
-etb::Shader::Shader() {
-	// SetupHotReload();
+etb::Shader::Shader() : program(0), vertMTime(0), fragMTime(0) {
+	SetupHotReload();
 }
 
-etb::Shader::Shader(const char* path) {
-	// SetupHotReload();
+etb::Shader::Shader(const char* path) : program(0), vertMTime(0), fragMTime(0) {
+	SetupHotReload();
 	LoadSources(path);
 	Compile();
 }
@@ -19,34 +20,10 @@ etb::Shader::~Shader() {
 	glDeleteProgram(program);
 }
 
-std::string _LoadFile(const char* path) {
-    try {
-		std::stringstream buffer;
-		std::ifstream file(path, std::ios::in);
-
-        if (file.is_open()) {
-			std::string contents = "";
-
-			while (file.peek() != EOF)
-			{
-				contents += (char) file.get();
-			}
-			file.close();
-
-            return contents;
-        }
-    }
-    catch (const std::ifstream::failure& e) {
-        etb::Debug::Print("Cannot open file \"" + std::string(path) + "\"");
-    }
-
-    return std::string("");
-}
-
-void PrintShaderLog(int shader) {
+void PrintShaderLog(int32_t shader) {
 	if (glIsShader(shader)) {
-		int infoLogLength = 0;
-		int maxLength = infoLogLength;
+		int32_t infoLogLength = 0;
+		int32_t maxLength = infoLogLength;
 
 		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
 		char* infoLog = new char[maxLength];
@@ -67,10 +44,24 @@ void PrintShaderLog(int shader) {
 	}
 }
 
-void etb::Shader::LoadSources(const char* path) {
-	this->path = path;
-    fragSource = _LoadFile((std::string(path) + ".frag").c_str());
-    vertSource = _LoadFile((std::string(path) + ".vert").c_str());
+void etb::Shader::LoadSources(const char* _path) {
+	this->path = _path;
+
+	std::string fragPath = path + ".frag";
+	std::string vertPath = path + ".vert";
+
+	if (!File::Exists(fragPath)) {
+		Debug::Print("Fragment shader \"" + fragPath + "\" does not exists");
+		return;
+	}
+
+	if (!File::Exists(vertPath)) {
+		Debug::Print("Vertex shader \"" + vertPath + "\" does not exists");
+		return;
+	}
+
+    fragSource = File::ReadAll(fragPath);
+    vertSource = File::ReadAll(vertPath);
 }
 
 bool etb::Shader::Compile() {
