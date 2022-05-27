@@ -10,7 +10,7 @@
 namespace etb {
 	namespace Graphics {
 
-		void DrawMesh(Mesh& mesh, Material& material, glm::vec3 position, glm::vec3 rotation);
+		void DrawMesh(Mesh& mesh, glm::vec3 position, glm::vec3 rotation);
 
 		namespace Draw {
 			void Circle2D(glm::vec3 color, glm::vec2 position, float radius, float stroke = 1.0f, glm::vec3 strokeColor = { 0, 0, 0 });

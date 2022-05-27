@@ -7,11 +7,9 @@
 #include "../IO/File.h"
 
 etb::Shader::Shader() : program(0), vertMTime(0), fragMTime(0) {
-	SetupHotReload();
 }
 
 etb::Shader::Shader(const char* path) : program(0), vertMTime(0), fragMTime(0) {
-	SetupHotReload();
 	LoadSources(path);
 	Compile();
 }
@@ -123,7 +121,7 @@ void etb::Shader::LoadBinary(const char* path) {
 void etb::Shader::SaveBinary(const char* path) {
 }
 
-void etb::Shader::SetupHotReload() {
+void etb::Shader::HotReload() {
 	EventSystem::AddEventListener(EventType::Tick, [&](Event& e) {
 		std::string fragPath = std::string(path) + ".frag";
 		std::string vertPath = std::string(path) + ".vert";
@@ -158,4 +156,8 @@ void etb::Shader::SetupHotReload() {
 			}
 		}
 	});
+}
+
+void etb::Shader::Use() {
+	glUseProgram(program);
 }

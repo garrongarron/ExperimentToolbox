@@ -5,7 +5,7 @@
 #include "Input.h"
 #include "EventSystem.h"
 
-etb::Input* etb::Input::instance;
+etb::Input etb::Input::instance;
 
 glm::vec2 etb::Input::GetMousePosition() {
     int x, y;
@@ -15,10 +15,8 @@ glm::vec2 etb::Input::GetMousePosition() {
 }
 
 void etb::Input::UpdateKeyState() {
-    Input* input = Input::GetInstance();
-
-    std::fill(input->keyDownState, input->keyDownState + 322 * sizeof(bool), false);
-    std::fill(input->keyUpState, input->keyUpState + 322 * sizeof(bool), false);
+    std::fill(instance.keyDownState, instance.keyDownState + 322 * sizeof(bool), false);
+    std::fill(instance.keyUpState, instance.keyUpState + 322 * sizeof(bool), false);
 }
 
 etb::Input::Input() {
@@ -47,11 +45,4 @@ etb::Input::~Input() {
     delete[] keyDownState;
     delete[] keyUpState;
     delete[] keyPressState;
-}
-
-etb::Input* etb::Input::GetInstance() {
-    if (Input::instance == nullptr) {
-        Input::instance = new Input();
-    }
-    return Input::instance;
 }

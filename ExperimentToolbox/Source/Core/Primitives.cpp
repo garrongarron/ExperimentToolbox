@@ -15,6 +15,9 @@ void etb::Primitives::GeneratePrimitives() {
 		{ .5f, -.5f, 0},
 		{ .5f,  .5f, 0},
 	};
+	Primitives::quad.normals = {
+		{0, 0, -1},
+	};
 	Primitives::quad.uv = {
 		{0, 1},
 		{0, 0},
@@ -30,5 +33,8 @@ void etb::Primitives::GeneratePrimitives() {
 
 	// Cube
 	OBJFile file = OBJLoader::FromFile("Build-In/Models/Cube.obj");
-	Primitives::cube = file.GetMesh("Cube_Cube.001");
+	Primitives::cube = file.GetMesh("Cube");
+
+	Primitives::cube.GenBuffers();
+	Primitives::cube.StoreData();
 }

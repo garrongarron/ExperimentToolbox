@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Graphics/Texture.h"
 #include "../Etb.h"
 
 namespace etb {
@@ -18,6 +19,7 @@ namespace etb {
 		void SetFloat(const char* name, float value);
 		void SetVector2(const char* name, glm::vec2 value);
 		void SetVector3(const char* name, glm::vec3 value);
+		void SetSampler2D(const char* name, Texture texture);
 
 	private:
 		Shader* shader;

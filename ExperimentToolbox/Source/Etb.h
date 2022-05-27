@@ -26,8 +26,9 @@
 #include "Core/Shader.h"
 #include "Core/Material.h"
 #include "Core/Mesh.h"
-#include "Core/Graphics.h"
 #include "Core/Primitives.h"
+#include "Core/Graphics.h"
+#include "Graphics/Texture.h"
 
 // Experiment Toolbox
 #include "Core/Application.h"

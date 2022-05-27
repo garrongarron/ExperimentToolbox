@@ -8,7 +8,6 @@
 #include "Primitives.h"
 #include "Time.h"
 #include "EventSystem.h"
-#include "Input.h"
 
 etb::Application::Application() {
 	Window::Init();
@@ -16,6 +15,8 @@ etb::Application::Application() {
 	window = new Window("Title", 800, 600);
 
 	Graphics::GL::Init();
+
+	Primitives::GeneratePrimitives();
 }
 
 etb::Application::Application(const char* title, uint32_t width, uint32_t height) {
@@ -24,6 +25,8 @@ etb::Application::Application(const char* title, uint32_t width, uint32_t height
 	window = new Window(title, width, height);
 
 	Graphics::GL::Init();
+
+	Primitives::GeneratePrimitives();
 }
 
 etb::Application::~Application() {
@@ -31,10 +34,11 @@ etb::Application::~Application() {
 }
 
 void etb::Application::Start() {
-	Primitives::GeneratePrimitives();
-
 	bool isRunning = true;
-	EventSystem::AddEventListener(EventType::Quit, [&](Event& e) { isRunning = false; });
+
+	EventSystem::AddEventListener(EventType::Quit, [&](Event& e) {
+		isRunning = false;
+	});
 
 	Time::Start();
 
@@ -42,14 +46,10 @@ void etb::Application::Start() {
 
 	while (isRunning) {
 		Time::Tick();
-
-		// Events
 		EventSystem::Poll();
 
-		// Update
 		this->Update();
 
-		// Render
 		Graphics::GL::Clear();
 		this->Render();
 

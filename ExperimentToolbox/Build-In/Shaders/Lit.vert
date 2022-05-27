@@ -10,5 +10,7 @@ void main() {
 	
 	normal = vertexNormal;
 	
-	gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * vec4(vertexPosition, 1);
+	vec3 pos = vertexPosition + vertexNormal * 0.00125;
+	
+	gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * vec4(pos, 1);
 }

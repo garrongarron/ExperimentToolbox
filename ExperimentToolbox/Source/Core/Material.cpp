@@ -41,3 +41,7 @@ void etb::Material::SetVector3(const char* name, glm::vec3 value) {
 		value.x, value.y, value.z
 	);
 }
+
+void etb::Material::SetSampler2D(const char* name, Texture texture) {
+	
+}

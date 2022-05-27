@@ -1,7 +1,7 @@
 #include <glm/glm.hpp>
 #include "Graphics.h"
 
-void etb::Graphics::DrawMesh(Mesh &mesh, Material& material, glm::vec3 position, glm::vec3 rotation) {
+void etb::Graphics::DrawMesh(Mesh &mesh, glm::vec3 position, glm::vec3 rotation) {
 	glPushMatrix();
 	
 	// Position
@@ -14,14 +14,16 @@ void etb::Graphics::DrawMesh(Mesh &mesh, Material& material, glm::vec3 position,
 
 	glColor3f(1, 1, 1);
 
-	// Use Material
-	material.Use();
-
 	// Draw
 
 	mesh.BindBuffers();
 	glDrawElements(GL_TRIANGLES, (GLsizei) mesh.elements.size() * 3, GL_UNSIGNED_INT, 0);
-	
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+
 	glPopMatrix();
 }
 
@@ -113,7 +115,7 @@ void etb::Graphics::Draw::Circle2D(glm::vec3 color, glm::vec2 position, float ra
 	cirlce2DMaterial.SetVector3("strokeColor", strokeColor);
 	cirlce2DMaterial.SetFloat("radius", radius * 2.0f);
 	cirlce2DMaterial.SetFloat("stroke", stroke);
-	DrawMesh(Primitives::quad, cirlce2DMaterial, glm::vec3(position, 0), { 0, 0, 0 });
+	DrawMesh(Primitives::quad, glm::vec3(position, 0), { 0, 0, 0 });
 }
 
 void etb::Graphics::Draw::Vector2D(glm::vec3 color, glm::vec2 start, glm::vec2 dir) {

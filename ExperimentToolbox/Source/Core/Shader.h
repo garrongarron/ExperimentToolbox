@@ -17,6 +17,9 @@ namespace etb {
 		void LoadBinary(const char* path);
 		void SaveBinary(const char* path);
 
+		void HotReload();
+		void Use();
+
 	private:
 		int32_t program;
 		
@@ -27,7 +30,5 @@ namespace etb {
 
 		std::string fragSource;
 		std::string vertSource;
-
-		void SetupHotReload();
 	};
 }

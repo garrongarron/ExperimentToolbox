@@ -44,7 +44,7 @@ etb::Mesh etb::OBJFile::GetMesh(const std::string& name) {
         ssLine >> header >> std::ws;
 
         if (header == "o") {
-            // break;
+            break;
         }
         else if (header == "v") {
             glm::vec3 v;
@@ -64,47 +64,39 @@ etb::Mesh etb::OBJFile::GetMesh(const std::string& name) {
         else if (header == "f") {
             int v, t, n;
 
-            //for (int32_t i = 0; !ssLine.eof() || ssLine.peek() != -1; i++) {
-            //    ssLine >> v >> std::ws;
-            //    
-            //    if (ssLine.peek() == '/') {
-            //        ssLine.get();
+            for (int32_t i = 0; !ssLine.eof() && ssLine.peek() != -1; i++) {
+                ssLine >> v;
+                
+                if (ssLine.peek() == '/') {
+                    ssLine.get();
 
-            //        if (ssLine.peek() == '/') {
-            //            ssLine.get();
-            //            ssLine >> n;
-            //            
-            //            std::cout << "n(" << v << ") ";
+                    if (ssLine.peek() == '/') {
+                        ssLine.get();
+                        ssLine >> n;
 
-            //            mesh.vertex.push_back(tmp.vertex[n - 1]);
-            //            mesh.uv.push_back({ 0, 0 });
-            //            mesh.normals.push_back(tmp.normals[n - 1]);
-            //        }
-            //        else {
-            //            ssLine.get();
-            //            ssLine >> t;
+                        mesh.vertex.push_back(tmp.vertex[v - 1]);
+                        mesh.uv.push_back({ 0, 0 });
+                        mesh.normals.push_back(tmp.normals[n - 1]);
+                    }
+                    else {
+                        ssLine >> t;
 
-            //            if (ssLine.peek() == '/') {
-            //                ssLine.get();
-            //                ssLine >> n;
-            //                
-            //                mesh.vertex.push_back(tmp.vertex[n - 1]);
-            //                mesh.uv.push_back(tmp.uv[t - 1]);
-            //                mesh.normals.push_back(tmp.normals[n - 1]);
-            //            }
-            //        }
-            //    }
-            //}
+                        if (ssLine.peek() == '/') {
+                            ssLine.get();
+                            ssLine >> n;
+
+                            mesh.vertex.push_back(tmp.vertex[v - 1]);
+                            mesh.uv.push_back(tmp.uv[t - 1]);
+                            mesh.normals.push_back(tmp.normals[n - 1]);
+                        }
+                    }
+                }
+            }
             
-            // const int32_t i = 0;// mesh.vertex.size();
-            // glm::uvec3 face{ 0, 0, 0 };
-
-
-            // std::cout << "Line: " << face.x << " " << face.y << " " << face.z << "\n";
-            std::cout << "Line: " << i << "\n";
+            const int32_t i = mesh.vertex.size();
+            mesh.elements.push_back({ i - 3, i - 2, i - 1 });
         }
     }
-
 
     file.close();
 
