@@ -12,6 +12,7 @@ etb::Material::~Material() {
 
 void etb::Material::Use() {
 	glUseProgram(shader->program);
+	samplerCount = 0;
 }
 
 void etb::Material::SetInt(const char* name, int value) {
@@ -43,5 +44,11 @@ void etb::Material::SetVector3(const char* name, glm::vec3 value) {
 }
 
 void etb::Material::SetSampler2D(const char* name, Texture texture) {
-	
+	glActiveTexture(GL_TEXTURE0 + samplerCount);
+
+	// texture.BindTexture();
+
+	// glUniform1i(name, samplerCount);
+
+	samplerCount++;
 }

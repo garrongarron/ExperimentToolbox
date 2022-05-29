@@ -49,6 +49,9 @@
     <Filter Include="Header Files\Graphics">
       <UniqueIdentifier>{b60af9fa-3783-46f5-83e4-dab23f625468}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Vendor\stb_image">
+      <UniqueIdentifier>{9ed035d3-31ee-4629-9987-c048c2981094}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\Bounds.cpp">
@@ -209,5 +212,11 @@
     <ClInclude Include="Source\Graphics\Texture.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Vendor\stb_image\stb_image.h">
+      <Filter>Resource Files\Vendor\stb_image</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

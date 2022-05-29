@@ -23,5 +23,6 @@ namespace etb {
 
 	private:
 		Shader* shader;
+		uint32_t samplerCount;
 	};
 }

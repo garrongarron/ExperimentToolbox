@@ -13,12 +13,12 @@ public:
         Graphics::GL::ClearColor({ 0, 0, 0 });
 
         shader.LoadSources("Build-In/Shaders/Lit");
-        shader.Compile();   
+        shader.Compile();
         shader.HotReload();
 
         mat.SetShader(&shader);
     }
-
+    
     void Update() {
     }
 
@@ -44,6 +44,5 @@ public:
 int main(int argc, char* argv[]) {
     App app;
     app.Start();
-
     return 0;
 }
